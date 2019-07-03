@@ -14,6 +14,10 @@
 #include "fdf.h"
 #include "mlx.h"
 
+/*
+** function of assigning default value t_prop
+*/
+
 void	ft_fdfprop_init2(t_prop *prop)
 {
 	prop->ht_ratio = GRAPHIC_RATIO_ALTITUDE_DEFAULT;
@@ -31,6 +35,10 @@ void	ft_fdfprop_init2(t_prop *prop)
 	prop->ht_scale = prop->pt_scale * prop->ht_ratio;
 	prop->clr_prop[2] = prop->map_height;
 }
+
+/*
+** function of setup property object t_prop
+*/
 
 t_prop	*ft_fdfprop_init(void)
 {

@@ -14,6 +14,16 @@
 #include "fdf.h"
 #include "mlx.h"
 
+/*
+** function of +/- process in keyboard by changing pt_scale (scale in x, y) and
+** ht_scale (scale in z, also concern by ht_ratio) in t_prop
+** In zoom mode (key = z), change the pt_scale and ht_scale in t_prop
+** In flatten mode (key = f), change the pt_scale and remain ht_scale by
+**		updating ht_ratio in t_prop
+** In altitude mode (key = h), change the ht_scale by updating ht_ratio
+** In color mode (key = T/B), change the color by func (ft_fdfproj_color_set)
+*/
+
 void	ft_fdfctrlkey_zoom(int plus, int key, t_prop *prop)
 {
 	if (key == KEY_Z || key == KEY_F)
@@ -28,7 +38,7 @@ void	ft_fdfctrlkey_zoom(int plus, int key, t_prop *prop)
 			prop->ht_ratio *= (plus ? 1.1 : 0.9);
 	}
 	else if (key == KEY_F)
-		prop->ht_ratio = prop->ht_scale / prop->pt_scale;
+		prop->ht_ratio = (double)prop->ht_scale / prop->pt_scale;
 	if (key == KEY_Z || key == KEY_HH)
 		prop->ht_scale = prop->pt_scale * prop->ht_ratio;
 	if (key == KEY_T)

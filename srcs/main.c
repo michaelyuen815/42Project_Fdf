@@ -14,16 +14,31 @@
 #include "fdf.h"
 #include "mlx.h"
 
+/*
+** function of exit program
+*/
+
 int		ft_main_exit(void)
 {
 	exit(0);
 	return (1);
 }
 
+/*
+** function of printing error message with error output
+*/
+
 void	ft_main_printerr(char *msg)
 {
 	ft_putendl_fd(msg, 2);
 }
+
+/*
+** function of setup graphic program window which includes:
+** 1. setup window
+** 2. run calculation & projection of graphic and print menu
+** 3. setup react function (key & mouse)
+*/
 
 void	ft_fdfmain_win(t_prop *prop, t_map *map, char *file)
 {
@@ -32,9 +47,16 @@ void	ft_fdfmain_win(t_prop *prop, t_map *map, char *file)
 	prop->window = mlx_new_window(\
 	prop->mlx, WINDOW_WIDTH_DEFAULT, WINDOW_LEN_DEFAULT, file);
 	ft_fdfwin_core(prop, map);
-	mlx_key_hook(prop->window, &ft_fdfctrl_key, prop);
 	ft_fdfctrl_init(prop);
 }
+
+/*
+** main function of fdf
+** 1. setup object of graphic properties (ft_fdfprop_init)
+** 2. read source file to setup map object (ft_fdfread_main)
+** 3. recalulate the properties between object details (ft_fdfprop_init2)
+** 4. run setup graphic porgram function (ft_fdfmain_win)
+*/
 
 int		main(int ac, char **av)
 {

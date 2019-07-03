@@ -14,6 +14,10 @@
 #include "fdf.h"
 #include "mlx.h"
 
+/*
+** Mapping function that apply pointer function (*f) with all nodes in t_map
+*/
+
 void	ft_fdfulits_map(t_prop *prop, t_map *map, void (*f)(t_prop*, t_map*))
 {
 	t_map *cur_r;

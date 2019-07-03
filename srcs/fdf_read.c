@@ -14,6 +14,11 @@
 #include "libft.h"
 #include "fdf.h"
 
+/*
+** function of capture the altitude value of correspoding point
+** if there is ',' afterwards, restore the value after ',' into color
+*/
+
 int		ft_fdfread_height(char **line, int *color)
 {
 	int		ret;
@@ -40,6 +45,11 @@ int		ft_fdfread_height(char **line, int *color)
 	return (ret);
 }
 
+/*
+** function of creating individual node and
+** store the largest value of height in property object t_prop
+*/
+
 t_map	*ft_fdfread_create(t_prop *prop, int x, int y, char **line)
 {
 	t_map	*new;
@@ -63,6 +73,12 @@ t_map	*ft_fdfread_create(t_prop *prop, int x, int y, char **line)
 			z * SIGN(z) : prop->map_height;
 	return (new);
 }
+
+/*
+** function of creating a linked list for every single line in src file
+** and linked every node with previous line with pointer (*down)
+** in addition, store the largest value of x, y to t_prop
+*/
 
 t_map	*ft_fdfread_fill(t_prop *prop, t_map *pre, char *line)
 {
@@ -90,6 +106,14 @@ t_map	*ft_fdfread_fill(t_prop *prop, t_map *pre, char *line)
 	prop->map_len = y;
 	return (cur);
 }
+
+/*
+** main function of reading src file to create map object (t_map)
+** step 1: open file
+** step 2: keep running function get_next_line to get every line
+** step 3: for every line, run function (ft_fdfread_fill) to create
+**			a linked list and linked with linked list with previous line
+*/
 
 t_map	*ft_fdfread_main(t_prop *prop, char *filename)
 {

@@ -14,6 +14,12 @@
 #include "fdf.h"
 #include "mlx.h"
 
+/*
+** function of mouse holding control
+** if left key is hold, run function (ft_fdfctrlmouse_move)
+** if right key is hold, run function (ft_fdfctrelmouse_rotate)
+*/
+
 int		ft_fdfctrl_mouse(int x, int y, void *param)
 {
 	t_prop *prop;
@@ -28,6 +34,11 @@ int		ft_fdfctrl_mouse(int x, int y, void *param)
 	return (1);
 }
 
+/*
+** function of mouse key press control
+** when mouse key is pressed, save the coorination and key in t_prop
+*/
+
 int		ft_fdfctrl_press(int button, int x, int y, void *param)
 {
 	t_prop *prop;
@@ -38,6 +49,11 @@ int		ft_fdfctrl_press(int button, int x, int y, void *param)
 	prop->mouse_pos[AXIS_Y] = y;
 	return (1);
 }
+
+/*
+** function of mouse key release control
+** when mouse key is released, reset key in t_prop to 0
+*/
 
 int		ft_fdfctrl_release(int button, int x, int y, void *param)
 {
@@ -51,6 +67,19 @@ int		ft_fdfctrl_release(int button, int x, int y, void *param)
 		prop->mouse_key = 0;
 	return (1);
 }
+
+/*
+** function of keyboard key control
+** if arrow or +/- mode key is pressed, store key value into t_prop
+** if esc key is pressed, run function (ft_main_exit)
+** if F5 key is pressed, run function (ft_fdfprop_init2) to change all
+**		value in t_prop back to default
+** if +/- key is pressed, run function (ft_fdfctrlkey_zoom)
+** if arrow key is pressed, run function (ft_fdfctrlkey_move)
+** if num key is pressed, run function (ft_fdfproj_std)
+** After running coresponding function, run function (ft_fdfwin_core) to
+**	redraw the content of graphic
+*/
 
 int		ft_fdfctrl_key(int key, void *param)
 {

@@ -14,6 +14,12 @@
 #include "fdf.h"
 #include "mlx.h"
 
+/*
+** function of move action by mouse control
+** apply the change of x, y coordination to position of map in t_prop
+** and also update the x, y coordination of mouse in t_prop
+*/
+
 void	ft_fdfctrlmouse_move(int x, int y, t_prop *prop)
 {
 	if (x > WINDOW_WIDTH_DEFAULT || y > WINDOW_LEN_DEFAULT)
@@ -23,6 +29,12 @@ void	ft_fdfctrlmouse_move(int x, int y, t_prop *prop)
 	prop->mouse_pos[0] = x;
 	prop->mouse_pos[1] = y;
 }
+
+/*
+** function of rotate action of mouse control
+** apply the change of x, y coordination to angle of map in t_prop
+** and also updtae the x, y coorination of mouse in t_prop
+*/
 
 void	ft_fdfctrelmouse_rotate(int x, int y, t_prop *prop)
 {

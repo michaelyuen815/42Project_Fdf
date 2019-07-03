@@ -14,6 +14,10 @@
 #include "fdf.h"
 #include "mlx.h"
 
+/*
+** static string array of menu
+*/
+
 char *g_menu[] =
 {
 	MSG_EXIT,
@@ -24,6 +28,11 @@ char *g_menu[] =
 	MSG_PROJH, MSG_PROISO, MSG_PROEVA, MSG_PROPLA,
 	NULL
 };
+
+/*
+** function of creating control menu that indicate mode of arrow & +/-
+** the printed value is determined by the property key_key in t_prop
+*/
 
 void	ft_fdfwin_submenu(int x, int y, t_prop *prop)
 {
@@ -49,6 +58,12 @@ void	ft_fdfwin_submenu(int x, int y, t_prop *prop)
 	ft_strdel(&tmp);
 }
 
+/*
+** function of printing menu
+** 1. print the control menu with function (ft_fdfwin_submenu)
+** 2. print menu item in oeder based on static variable g_menu
+*/
+
 void	ft_fdfwin_menu(t_prop *prop)
 {
 	int		x;
@@ -67,6 +82,16 @@ void	ft_fdfwin_menu(t_prop *prop)
 		y += MENU_SPACING_DEFAULT;
 	}
 }
+
+/*
+** function of printing projected line
+** Step 1: store difference of x & y for 2 point given in variable (len)
+** Step 2: choose the greater value of len as variable (pt) for base
+** Step 3: divide all lens value by pt to get the value change per base unit
+** Step 4: put the pixel for every base unit with looping:
+**			for x & y coordination, use len * i to calculate projected point
+**			for color, use function (ft_fdfproj_color) with ratio 1 / pt * i
+*/
 
 void	ft_fdfwin_line(t_prop *prop, t_map *map1, t_map *map2)
 {
@@ -90,6 +115,13 @@ void	ft_fdfwin_line(t_prop *prop, t_map *map1, t_map *map2)
 		ft_fdfproj_color(map1->color, map2->color, fabs(len[AXIS_CLR]) * i));
 }
 
+/*
+** function of printing projected point
+** step 1: print the projected point if the coorindation is within the window
+** step 2: run function (ft_fdfwin_line) to print projected line between
+**			current point and next right/down point if they exist
+*/
+
 void	ft_fdfwin_pt(t_prop *prop, t_map *map)
 {
 	char main;
@@ -112,6 +144,14 @@ void	ft_fdfwin_pt(t_prop *prop, t_map *map)
 			map->down->proj[AXIS_Y] <= WINDOW_LEN_DEFAULT))
 			ft_fdfwin_line(prop, map, map->down);
 }
+
+/*
+** function of calculating the projection point and printing points and menu
+** step 1: run function (mlx_clear_window) to clear the pixel in window
+** step 2: run function (ft_fdfproj_init) to calculate all projected point
+** step 3: run function (ft_fdfwin_pt) to print all projected point and line
+** step 4: run fucntion (ft_fdfwin_menu) to create menu
+*/
 
 void	ft_fdfwin_core(t_prop *prop, t_map *map)
 {

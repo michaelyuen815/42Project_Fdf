@@ -21,6 +21,11 @@ int g_proj[][3] =
 	{0, 0, 0}
 };
 
+/*
+** function of assigned projection angles based on static varible g_proj into
+**	property object t_prop
+*/
+
 void	ft_fdfproj_std(int key, t_prop *prop)
 {
 	key -= (BL_PROJ_PAD(key) ? KEY_1 : KEY_NUM_1);
@@ -28,6 +33,18 @@ void	ft_fdfproj_std(int key, t_prop *prop)
 	prop->angle_pitch = g_proj[key][1] * (PI / 180);
 	prop->angle_roll = g_proj[key][2] * (PI / 180);
 }
+
+/*
+** function of changing color according to color spectrum
+** the order is	1. WHITE(0xFFFFFF)
+**				2. RED(0xFF0000)
+**				3. YELLOW(0xFFFF00)
+**				4. GREEN(0x00FF00)
+**				5. LIME(0x00FFFF)
+**				6. BLUE(0x0000FF)
+**				7. PURPLE(0xFF00FF)
+**				8. BLACK(0x000000)
+*/
 
 int		ft_fdfproj_color_set(int color, char sign)
 {
@@ -56,6 +73,11 @@ int		ft_fdfproj_color_set(int color, char sign)
 	return (color);
 }
 
+/*
+** function of calculate the projected color based on ratio
+** method: calculate weighted value of every 8 bits and combine them
+*/
+
 int		ft_fdfproj_color(int clr1, int clr2, float ratio)
 {
 	int bits;
@@ -72,6 +94,13 @@ int		ft_fdfproj_color(int clr1, int clr2, float ratio)
 	return (ret);
 }
 
+/*
+** function of calculate the inital color value
+** if height is 0, return bottom color value
+** otherwise, calculate the ratio based on height divided by altitude of map
+** run function (ft_fdfproj_color) to calculate the color with cal ratio
+*/
+
 void	ft_fdfproj_color_init(t_prop *prop, t_map *map)
 {
 	int		z;
@@ -86,6 +115,10 @@ void	ft_fdfproj_color_init(t_prop *prop, t_map *map)
 	ratio = (float)z * SIGN(z) / prop->clr_prop[2];
 	map->color = ft_fdfproj_color(prop->clr_prop[1], prop->clr_prop[0], ratio);
 }
+
+/*
+** function of calculated project x, y coordination
+*/
 
 void	ft_fdfproj_init(t_prop *prop, t_map *map)
 {
