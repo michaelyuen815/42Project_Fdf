@@ -50,26 +50,26 @@ int		ft_fdfproj_color_set(int color, char sign)
 {
 	if (RED(color) == 255 && !BLU(color) && \
 		!(color == CLR_RED && !sign) && !(color == CLR_YEL && sign))
-		color += 0xF00 * (sign ? 1 : -1);
+		color += 0x3300 * (sign ? 1 : -1);
 	else if (GRN(color) == 255 && !BLU(color) && \
 		!(color == CLR_YEL && !sign) && !(color == CLR_GRN && sign))
-		color += 0xF0000 * (sign ? -1 : 1);
+		color += 0x330000 * (sign ? -1 : 1);
 	else if (!RED(color) && GRN(color) == 255 && \
 		!(color == CLR_GRN && !sign) && !(color == CLR_LIM && sign))
-		color += 0xF * (sign ? 1 : -1);
+		color += 0x33 * (sign ? 1 : -1);
 	else if (!RED(color) && BLU(color) == 255 && \
 		!(color == CLR_LIM && !sign) && !(color == CLR_BLU && sign))
-		color += 0xF00 * (sign ? -1 : 1);
+		color += 0x3300 * (sign ? -1 : 1);
 	else if (!GRN(color) && BLU(color) == 255 && \
 		!(color == CLR_BLU && !sign) && !(color == CLR_PUR && sign))
-		color += 0xF0000 * (sign ? 1 : -1);
+		color += 0x330000 * (sign ? 1 : -1);
 	else if (((RED(color) && !GRN(color) && BLU(color)) || \
 		color == CLR_BLK) && \
 		!(color == CLR_PUR && !sign) && !(color == CLR_BLK && sign))
-		color += 0xF000F * (sign ? -1 : 1);
+		color += 0x330033 * (sign ? -1 : 1);
 	else if (RED(color) == 255 && \
 		!(color == CLR_WHITE && !sign) && !(color == CLR_RED && sign))
-		color += 0xF0F * (sign ? -1 : 1);
+		color += 0x3333 * (sign ? -1 : 1);
 	return (color);
 }
 
