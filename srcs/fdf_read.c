@@ -36,7 +36,10 @@ int		ft_fdfread_height(char **line, int *color)
 		tmp = 0;
 		(*line) += 3;
 		while (**line && !BL_SP(**line))
-			tmp = tmp * 16 + ft_strchr(HEX, *(*line)++) - HEX;
+		{
+			tmp = tmp * 16 + **line - (**line >= 'A' ? 'a' - 10 : '0');
+			(*line)++;
+		}
 		*color = tmp;
 	}
 	ret *= (neg ? -1 : 1);
